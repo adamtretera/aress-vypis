@@ -4,9 +4,12 @@ const cors = require("cors")({ origin: true });
 
 const getCompany = async (ico: string) => {
 	const fetch = require("node-fetch");
-	const res = await fetch(
-		`https://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?ico=27074358`
-	);
+	const url =
+		"http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?obchodni_firma=" + ico;
+	console.log(url);
+
+	const res = await fetch(url);
+	console.log(ico);
 	const xmlData = await res.text();
 	var parser = require("fast-xml-parser");
 	var options = {
@@ -26,7 +29,6 @@ const getCompany = async (ico: string) => {
 	};
 
 	if (parser.validate(xmlData) === true) {
-		console.log(parser.parse(xmlData, options).Ares_odpovedi.Odpoved.Zaznam);
 		return parser.parse(xmlData, options).Ares_odpovedi.Odpoved.Zaznam;
 	} else {
 		return { error: "nevalidní XML" };
@@ -35,8 +37,10 @@ const getCompany = async (ico: string) => {
 
 exports.ares = functions.https.onRequest(
 	async (request: any, response: any) => {
+		console.log(request, response);
+
 		cors(request, response, async () => {
-			const data = await getCompany(response.body);
+			const data = await getCompany(request.body);
 			console.log(data);
 			response.send(data);
 		});
