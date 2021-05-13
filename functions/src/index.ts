@@ -29,7 +29,12 @@ const getCompany = async (ico: string) => {
 	};
 
 	if (parser.validate(xmlData) === true) {
-		return parser.parse(xmlData, options).Ares_odpovedi.Odpoved.Zaznam;
+		const data = parser.parse(xmlData, options).Ares_odpovedi.Odpoved;
+		if (data.Pocet_zaznamu > 0) {
+			return data.Zaznam;
+		} else {
+			return { error: "Nic jsme nenašli." };
+		}
 	} else {
 		return { error: "nevalidní XML" };
 	}

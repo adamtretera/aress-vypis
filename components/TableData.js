@@ -25,7 +25,7 @@ const TableData = ({ companies }) => {
 						<Td>{company.Datum_vzniku}</Td>
 						<Td>
 							{company.Identifikace.Adresa_ARES.Nazev_ulice}{" "}
-							{company.Identifikace.Adresa_ARES.Typ_cislo_domovni}
+							{company.Identifikace.Adresa_ARES.Cislo_domovni}
 							{", "}
 							{company.Identifikace.Adresa_ARES.Nazev_obce}
 							{", "}
