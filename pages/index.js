@@ -15,23 +15,12 @@ export default function Home() {
 		watch,
 		formState: { errors },
 	} = useForm();
+	const fetcher = (url) => fetch(url).then((res) => res.json());
+
 	const onSubmit = async (form) => {
 		setIsLoading(true);
-		const res = await fetch(
-			"https://us-central1-ares-search.cloudfunctions.net/ares",
-			{
-				method: "POST",
-				body: form.spolecnost,
-			}
-		);
-		const data = await res.json();
-		console.log(Array.isArray(data));
-		if (Array.isArray(data)) {
-			setCompanyInfo(data);
-		} else {
-			setCompanyInfo([data]);
-		}
-		setIsLoading(false);
+		setCompanyInfo(useSWR(["/api/companies/" + form.spolecnost], fetcher));
+		setLoading(false);
 	};
 
 	return (
@@ -81,18 +70,6 @@ export default function Home() {
 							</button>
 						)}
 					</form>
-					{companyInfo[0].error ? (
-						<h1>{companyInfo[0].error}</h1>
-					) : companyInfo.length ? (
-						<TableData companies={companyInfo} />
-					) : (
-						<h2 className="text-lg text-center">
-							Vyhledejte všechny společnosti a živnostníky pomocí ARESU.
-							<div className="mt-6">
-								<HowTo />
-							</div>
-						</h2>
-					)}
 				</div>
 			</main>
 
