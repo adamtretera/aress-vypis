@@ -47,7 +47,7 @@ export default function Home() {
 
 			<main className=" min-h-screen">
 				<div>
-					<h1 className="text-6xl font-bold ">Ares výpis z rejstříku</h1>
+					<h1 className="text-6xl font-bold mt-20">Ares výpis z rejstříku</h1>
 					<form
 						onChange={handleSubmit(onSubmit)}
 						onSubmit={handleSubmit(onSubmit)}
