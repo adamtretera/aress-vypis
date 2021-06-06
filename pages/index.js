@@ -85,11 +85,7 @@ export default function Home() {
 							</button>
 						)}
 					</form>
-					{companyInfo ? (
-						<TableData companies={companyInfo} />
-					) : (
-						<h1>nic tu neni</h1>
-					)}
+					{companyInfo ? <TableData companies={companyInfo} /> : <HowTo />}
 				</div>
 			</main>
 
