@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export default async (req, res) => {
-	const url = `https://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?ico=27074358`;
+	const { name } = req.query;
+	const url = `http://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?obchodni_firma=${name}`;
 
 	await axios
 		.get(url, {
@@ -25,11 +26,11 @@ export default async (req, res) => {
 				parseTrueNumberOnly: false,
 				arrayMode: false, //"strict"
 			};
-			const data1 = parser.parse(data, options).Ares_odpovedi.Odpoved;
+			const data1 = parser.parse(data, options).Ares_odpovedi.Odpoved.Zaznam;
 
 			res.status(200).json(data1);
 		})
 		.catch(({ err }) => {
-			res.status(400).json({ err });
+			res.status(400).json(err);
 		});
 };

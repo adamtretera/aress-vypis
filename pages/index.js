@@ -1,26 +1,40 @@
 import Head from "next/head";
-import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import TableData from "../components/TableData";
 import HowTo from "../components/HowTo";
+import useSWR from "swr";
+
 export default function Home() {
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
-	const [companyInfo, setCompanyInfo] = useState({});
-	const [search, setSearch] = useState();
+	const [companyInfo, setCompanyInfo] = useState(null);
+
 	const {
 		register,
 		handleSubmit,
-		watch,
 		formState: { errors },
 	} = useForm();
-	const fetcher = (url) => fetch(url).then((res) => res.json());
 
 	const onSubmit = async (form) => {
 		setIsLoading(true);
-		setCompanyInfo(useSWR(["/api/companies/" + form.spolecnost], fetcher));
-		setLoading(false);
+
+		let aresArg;
+
+		/^[0-9]*$/g.test(form.spolecnost) ? (aresArg = "ico") : (aresArg = "name");
+		const res = await fetch(`/api/${aresArg}/${form.spolecnost} `);
+
+		const data = await res.json();
+		if (data.length > 1) {
+			console.log(data);
+		}
+
+		if (Array.isArray(data)) {
+			setCompanyInfo(data);
+		} else {
+			setCompanyInfo([data]);
+		}
+		setIsLoading(false);
 	};
 
 	return (
@@ -33,8 +47,9 @@ export default function Home() {
 
 			<main className=" min-h-screen">
 				<div>
-					<h1 className="text-6xl pt-6 font-bold ">Ares výpis z rejstříku</h1>
+					<h1 className="text-6xl font-bold ">Ares výpis z rejstříku</h1>
 					<form
+						onChange={handleSubmit(onSubmit)}
 						onSubmit={handleSubmit(onSubmit)}
 						className="flex justify-center py-8  "
 					>
@@ -70,6 +85,11 @@ export default function Home() {
 							</button>
 						)}
 					</form>
+					{companyInfo ? (
+						<TableData companies={companyInfo} />
+					) : (
+						<h1>nic tu neni</h1>
+					)}
 				</div>
 			</main>
 

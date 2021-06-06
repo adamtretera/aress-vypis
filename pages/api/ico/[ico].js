@@ -3,7 +3,7 @@ import axios from "axios";
 export default async (req, res) => {
 	const { ico } = req.query;
 	const url = `https://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?ico=${ico}`;
-
+	
 	await axios
 		.get(url, {
 			"Content-Type": "application/xml; charset=utf-8",
@@ -26,11 +26,11 @@ export default async (req, res) => {
 				parseTrueNumberOnly: false,
 				arrayMode: false, //"strict"
 			};
-			const data1 = parser.parse(data, options).Ares_odpovedi.Odpoved;
+			const data1 = parser.parse(data, options).Ares_odpovedi.Odpoved.Zaznam;
 
 			res.status(200).json(data1);
 		})
 		.catch(({ err }) => {
-			res.status(400).json({ err });
+			console.log(res.status(400).json(err));
 		});
 };
