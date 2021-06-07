@@ -49,7 +49,6 @@ export default function Home() {
 				<div>
 					<h1 className="text-6xl font-bold mt-20">Ares výpis z rejstříku</h1>
 					<form
-						onChange={handleSubmit(onSubmit)}
 						onSubmit={handleSubmit(onSubmit)}
 						className="flex justify-center py-8  "
 					>
