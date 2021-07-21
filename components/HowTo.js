@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Tr, Th, Td } from "./Table";
+import { BiBuildingHouse } from "react-icons/bi";
 
 const HowTo = () => {
 	return (
@@ -15,12 +16,9 @@ const HowTo = () => {
 			</thead>
 			<tbody>
 				<tr className="bg-white hover:bg-gray-200 transition ease-in duration-100 dark:bg-black">
-					<Td>Idetifikační číslo firmy</Td>
-					<Td>Daňové identifikační číslo firmy</Td>
-
-					<Td>Název firmy (živnostníka)</Td>
-					<Td>Kdy tato společnost vznikla ?</Td>
-					<Td>Sídlo firmy ve tvaru (adresa, město, PSČ)</Td>
+					<Td colSpan="5">
+						Hledejte na aresu podle IČO nebo názvu společnosti
+					</Td>
 				</tr>
 			</tbody>
 		</Table>

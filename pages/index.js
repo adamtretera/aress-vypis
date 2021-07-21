@@ -4,7 +4,6 @@ import { useState } from "react";
 import TableData from "../components/TableData";
 import HowTo from "../components/HowTo";
 import useSWR from "swr";
-
 export default function Home() {
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
@@ -73,16 +72,19 @@ export default function Home() {
 				<meta name="theme-color" content="#ffffff" />
 			</Head>
 
-			<main className=" min-h-screen">
+			<main className=" ">
 				<div>
-					<h1 className="text-6xl font-bold mt-20">Ares výpis z rejstříku</h1>
+					<h1 className=" text-3xl sm:text-6xl font-bold mt-12 sm:mt-20">
+						Ares výpis z rejstříku
+					</h1>
 					<form
 						onSubmit={handleSubmit(onSubmit)}
-						className="flex justify-center py-8  "
+						className="flex  sm:flex justify-center py-8  "
 					>
 						<input
-							className="border-2 py-2  w-1/2 px-3 border-black"
+							className="border-2 py-2  w-full sm:w-1/2 px-3 border-black"
 							{...register("spolecnost", { required: true })}
+							placeholder="např. 08876100 nebo Adam Tretera"
 						/>
 						{errors.exampleRequired && <span>Toto pole je povinné.</span>}
 						{isLoading ? (
@@ -108,7 +110,7 @@ export default function Home() {
 								type="submit"
 								className="border-2 flex items-center  border-black mx-4 px-3"
 							>
-								Vyhledat podle názvu
+								Vyhledat
 							</button>
 						)}
 					</form>
@@ -116,7 +118,7 @@ export default function Home() {
 				</div>
 			</main>
 
-			<footer></footer>
+			
 		</div>
 	);
 }
