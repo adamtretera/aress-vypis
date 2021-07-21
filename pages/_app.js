@@ -2,7 +2,7 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
 	return (
-		<div className="m-auto max-w-3xl text-center">
+		<div className="m-auto max-w-3/4 text-center">
 			<Component {...pageProps} />
 		</div>
 	);

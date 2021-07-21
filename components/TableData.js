@@ -3,7 +3,6 @@ import { Table, Tr, Th, Td } from "./Table";
 import Link from "next/link";
 
 const TableData = ({ companies }) => {
-	console.log(companies);
 	return (
 		<Table>
 			<thead>

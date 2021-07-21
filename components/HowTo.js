@@ -1,8 +1,7 @@
 import React from "react";
 import { Table, Tr, Th, Td } from "./Table";
 
-const HowTo = ({ companies }) => {
-	console.log(companies);
+const HowTo = () => {
 	return (
 		<Table>
 			<thead>

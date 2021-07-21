@@ -3,7 +3,7 @@ import axios from "axios";
 export default async (req, res) => {
 	const { ico } = req.query;
 	const url = `https://wwwinfo.mfcr.cz/cgi-bin/ares/darv_std.cgi?ico=${ico}`;
-	
+
 	await axios
 		.get(url, {
 			"Content-Type": "application/xml; charset=utf-8",
